@@ -1,41 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-// Definição dos tipos para as traduções
-type TranslationKeys = {
-  header: {
-    about: string;
-    experience: string;
-    skills: string;
-    projects: string;
-    contact: string;
-  };
-  hero: {
-    title: string;
-    subtitle: string;
-    ctaContact: string;
-    ctaDownload: string;
-  };
-  about: {
-    title: string;
-    subtitle: string;
-    location: string;
-    experience: string;
-    education: {
-      title: string;
-      degree: string;
-      technician: string;
-    };
-    languages: {
-      title: string;
-      portuguese: string;
-      english: string;
-      spanish: string;
-    };
-  };
-  // ... outras seções
-};
-
 const resources = {
   en: {
     translation: {
