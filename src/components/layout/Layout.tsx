@@ -1,6 +1,5 @@
 import React from 'react';
 import Footer from './Footer';
-import ScrollToTop from './ScrollToTop';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 
 interface LayoutProps {
@@ -15,7 +14,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </main>
         <Footer />
-        <ScrollToTop />
       </div>
     </LanguageProvider>
   );
