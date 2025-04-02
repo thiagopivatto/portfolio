@@ -1,154 +1,201 @@
 import React, { useState } from 'react';
-import { MdEmail, MdPhone, MdLocationOn, MdSend } from 'react-icons/md';
+import { motion } from 'framer-motion';
+import { FaEnvelope } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
- const [formData, setFormData] = useState({
-   name: '',
-   email: '',
-   subject: '',
-   message: ''
- });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
- const handleSubmit = (e: React.FormEvent) => {
-   e.preventDefault();
-   console.log('Form submitted:', formData);
- };
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
- const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-   const { name, value } = e.target;
-   setFormData(prev => ({
-     ...prev,
-     [name]: value
-   }));
- };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
 
- return (
-   <section id="contact" className="py-20 bg-black">
-     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       {/* Heading */}
-       <div className="text-center mb-16">
-         <h2 className="text-4xl font-bold text-neon-blue mb-4">
-           Get In Touch
-         </h2>
-         <div className="w-24 h-1 mx-auto bg-neon-pink"></div>
-       </div>
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-       <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-         {/* Contact Info */}
-         <div className="lg:col-span-2 space-y-8">
-           <h3 className="text-2xl font-bold text-neon-pink mb-8">
-             Contact Information
-           </h3>
-           
-           <div className="space-y-8">
-             <div className="group flex items-center space-x-4 p-4 rounded-lg border border-gray-800 hover:border-neon-blue transition-colors duration-300">
-               <MdEmail className="w-8 h-8 text-neon-blue group-hover:animate-glow-blue" />
-               <div>
-                 <p className="text-neon-pink font-medium">Email</p>
-                 <a href="mailto:thiago.pivatto@outlook.com" 
-                    className="text-gray-300 hover:text-neon-blue transition-colors duration-300">
-                   thiago.pivatto@outlook.com
-                 </a>
-               </div>
-             </div>
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
 
-             <div className="group flex items-center space-x-4 p-4 rounded-lg border border-gray-800 hover:border-neon-blue transition-colors duration-300">
-               <MdPhone className="w-8 h-8 text-neon-blue group-hover:animate-glow-blue" />
-               <div>
-                 <p className="text-neon-pink font-medium">Phone</p>
-                 <a href="tel:+5511999178699" 
-                    className="text-gray-300 hover:text-neon-blue transition-colors duration-300">
-                   +55 (11) 99917-8699
-                 </a>
-               </div>
-             </div>
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Error sending message:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-             <div className="group flex items-center space-x-4 p-4 rounded-lg border border-gray-800 hover:border-neon-blue transition-colors duration-300">
-               <MdLocationOn className="w-8 h-8 text-neon-blue group-hover:animate-glow-blue" />
-               <div>
-                 <p className="text-neon-pink font-medium">Location</p>
-                 <p className="text-gray-300">
-                   São Paulo, Brazil
-                 </p>
-               </div>
-             </div>
-           </div>
-         </div>
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
-         {/* Contact Form */}
-         <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6 bg-black/40 p-8 rounded-lg border border-gray-800">
-           <div>
-             <label htmlFor="name" className="block text-sm font-medium text-neon-pink mb-2">
-               Name
-             </label>
-             <input
-               type="text"
-               id="name"
-               name="name"
-               value={formData.name}
-               onChange={handleChange}
-               className="w-full px-4 py-3 rounded-lg bg-black/40 border border-gray-800 text-gray-300 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-colors duration-300"
-               required
-             />
-           </div>
+  return (
+    <section id="contact" className="relative py-20 overflow-hidden">
+      {/* Background Effects */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/20 via-transparent to-transparent" />
+      </motion.div>
 
-           <div>
-             <label htmlFor="email" className="block text-sm font-medium text-neon-pink mb-2">
-               Email
-             </label>
-             <input
-               type="email"
-               id="email"
-               name="email"
-               value={formData.email}
-               onChange={handleChange}
-               className="w-full px-4 py-3 rounded-lg bg-black/40 border border-gray-800 text-gray-300 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-colors duration-300"
-               required
-             />
-           </div>
+      {/* Grid Pattern */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px',
+      }} />
 
-           <div>
-             <label htmlFor="subject" className="block text-sm font-medium text-neon-pink mb-2">
-               Subject
-             </label>
-             <input
-               type="text"
-               id="subject"
-               name="subject"
-               value={formData.subject}
-               onChange={handleChange}
-               className="w-full px-4 py-3 rounded-lg bg-black/40 border border-gray-800 text-gray-300 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-colors duration-300"
-               required
-             />
-           </div>
+      {/* Content */}
+      <motion.div
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+      >
+        <motion.h2
+          className="text-3xl sm:text-4xl font-bold text-white mb-12 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          Get in Touch
+        </motion.h2>
 
-           <div>
-             <label htmlFor="message" className="block text-sm font-medium text-neon-pink mb-2">
-               Message
-             </label>
-             <textarea
-               id="message"
-               name="message"
-               rows={6}
-               value={formData.message}
-               onChange={handleChange}
-               className="w-full px-4 py-3 rounded-lg bg-black/40 border border-gray-800 text-gray-300 focus:border-neon-blue focus:ring-1 focus:ring-neon-blue transition-colors duration-300"
-               required
-             />
-           </div>
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="flex items-center space-x-3 mb-6">
+              <FaEnvelope className="w-6 h-6 text-neon-blue" />
+              <h3 className="text-3xl font-semibold text-white">Send a Message</h3>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label htmlFor="name" className="block text-lg font-medium text-gray-400 mb-2">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-lg text-white focus:outline-none focus:border-neon-blue transition-colors duration-300"
+                  required
+                />
+              </div>
 
-           <button
-             type="submit"
-             className="w-full py-4 px-6 flex items-center justify-center space-x-2 bg-black hover:bg-gray-900 text-neon-blue border border-neon-blue rounded-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(0,242,255,0.5)] group"
-           >
-             <span>Send Message</span>
-             <MdSend className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-           </button>
-         </form>
-       </div>
-     </div>
-   </section>
- );
+              <div>
+                <label htmlFor="email" className="block text-lg font-medium text-gray-400 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-lg text-white focus:outline-none focus:border-neon-blue transition-colors duration-300"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="subject" className="block text-lg font-medium text-gray-400 mb-2">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  id="subject"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-lg text-white focus:outline-none focus:border-neon-blue transition-colors duration-300"
+                  required
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-lg font-medium text-gray-400 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-lg text-white focus:outline-none focus:border-neon-blue transition-colors duration-300"
+                  required
+                />
+              </div>
+
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-3 px-6 rounded-lg text-lg font-semibold text-white transition-colors duration-300 ${
+                  isSubmitting
+                    ? 'bg-gray-700 cursor-not-allowed'
+                    : 'bg-neon-blue hover:bg-neon-pink'
+                }`}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {isSubmitting ? 'Sending...' : 'Send Message'}
+              </motion.button>
+
+              {submitStatus === 'success' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-lg text-green-400 text-center"
+                >
+                  Message sent successfully!
+                </motion.p>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-lg text-red-400 text-center"
+                >
+                  Failed to send message. Please try again.
+                </motion.p>
+              )}
+            </form>
+          </motion.div>
+        </div>
+      </motion.div>
+    </section>
+  );
 };
 
 export default Contact;

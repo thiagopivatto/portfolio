@@ -1,175 +1,185 @@
 import React from 'react';
-import { FaBriefcase, FaCalendarAlt, FaBuilding, FaTrophy } from 'react-icons/fa';
-
-interface Experience {
- title: string;
- company: string;
- period: string;
- description: string;
- achievements: string;
- client?: string;
- type: string;
-}
-
-interface Experience {
-  title: string;
-  company: string;
-  period: string;
-  description: string;
-  achievements: string;
-  client?: string;
-  type: string;
-}
-
-const experiences: Experience[] = [
-  {
-    title: "Sr QA Engineer",
-    company: "Andela",
-    period: "12/2023 – 11/2024",
-    type: "Contract Job",
-    client: "The Weather Channel - IBM (Weather Industry)",
-    description: "Successfully conducted manual Mobile and API testing using Postman. Led a team with other QAs to improve the quality standards for the product.",
-    achievements: "Contract renewed multiple times due to high quality standards from Andela's QA team."
-  },
-  {
-    title: "QA Engineer",
-    company: "Appnovation",
-    period: "08/2023 – 04/2024",
-    type: "Full Time",
-    client: "Pfizer (Pharmaceutical Industry)",
-    description: "Successfully conducted manual UI and API testing using Postman.",
-    achievements: "Recognition by Pfizer as a company of excellence in software quality due to high quality standards."
-  },
-  {
-    title: "System Integration Tester",
-    company: "Dreamdev Technologies",
-    period: "06/2022 - 06/2023",
-    type: "Contract Job",
-    client: "eShopWorld (eCommerce Industry)",
-    description: "Successfully executed API testing, implementing best software testing practices.",
-    achievements: "Improvements and implementation of critical system integration tests, ensuring excellence in software quality for multi-billion dollar billing clients."
-  },
-  {
-    title: "Expert Developer",
-    company: "Tech Mahindra",
-    period: "11/2021 - 06/2022",
-    type: "Full Time",
-    client: "Kimberly-Clark (Healthcare Industry)",
-    description: "Planned and executed desktop, mobile and UI tests.",
-    achievements: "Optimization of testing processes where critical failures were found saving the client millions of dollars."
-  },
-  {
-    title: "QA Automator",
-    company: "K2 Partnering Solutions",
-    period: "07/2021 - 11/2021",
-    type: "Full Time",
-    client: "Interal Project (HR Industry)",
-    description: "Developed a test automation framework using stacks like Katalon, Groovy and Zephyr.",
-    achievements: "Improved internal testing processes to optimize the hiring flow for clients using the Salesforce platform using multiple testing automation frameworks."
-  },
-  {
-    title: "Customized Solutions Consultant II",
-    company: "Capgemini",
-    period: "10/2020 - 07/2021",
-    type: "Full Time",
-    client: "Ágora Investimentos (Financial Industry)",
-    description: "Developed a test automation framework for web and mobile testing.",
-    achievements: "Significant improvements in the mobile app after the implementation of a test automation routine, consolidating the broker's trust with its customers."
-  },
-  {
-    title: "Test Automation (Intern) / Test Analyst",
-    company: "Sopra Banking Software",
-    period: "08/2017 - 10/2020",
-    type: "Full Time",
-    client: "PACCAR Bank, BNP Paribas, Banrisul (Banking Industry)",
-    description: "Improved and implemented an automated testing framework using Java.",
-    achievements: "Approval from the central bank of brazil after an audit for one of our clients to become a bank, obtaining billionaire revenue. (PACCAR Bank)."
-  },
-];
+import { motion } from 'framer-motion';
+import { FaCalendarAlt } from 'react-icons/fa';
 
 const Experience: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
+  const experiences = [
+    {
+      company: "The Weather Channel - IBM",
+      period: "2023-2024",
+      client: "Andela",
+      industry: "Weather Industry",
+      description: "Led QA team in conducting manual Mobile and API testing, identifying and resolving over 50 high-priority defects. Utilized Postman for API validation and Charles Proxy for mobile testing.",
+      technologies: ["Postman", "Jira", "Charles Proxy", "TestRail", "Mobile Testing", "API Testing"],
+      achievements: [
+        "Secured multiple contract renewals due to consistent delivery of high-quality solutions",
+        "Improved testing process through collaborative efforts and knowledge sharing",
+        "Validated seamless feature integrations across platforms"
+      ]
+    },
+    {
+      company: "Pfizer Pharmaceutical Platform",
+      period: "2023",
+      client: "Appnovation",
+      industry: "Pharmaceutical Industry",
+      description: "Conducted UI and API testing for pharmaceutical applications, ensuring compliance with strict industry standards. Created detailed test plans and reports.",
+      technologies: ["Postman", "Jira", "TestRail", "UI Testing", "API Testing", "Pharmaceutical Standards"],
+      achievements: [
+        "Reduced defect leakage by 15% through comprehensive test planning",
+        "Maintained exceptional quality standards contributing to industry accolades",
+        "Delivered regular stakeholder updates aligning testing progress with objectives"
+      ]
+    },
+    {
+      company: "eShopWorld Integration Testing",
+      period: "2022-2023",
+      client: "Dreamdev Technologies",
+      industry: "eCommerce Industry",
+      description: "Executed API testing for high-traffic eCommerce platforms, verifying seamless integration between diverse systems. Designed and implemented over 30 test scenarios.",
+      technologies: ["Postman", "Jira", "Azure DevOps", "Monday.com", "API Testing", "Integration Testing"],
+      achievements: [
+        "Improved integration quality for multi-billion-dollar revenue clients",
+        "Designed and implemented over 30 test scenarios for critical system integrations",
+        "Enhanced testing workflows using Azure DevOps and Monday.com"
+      ]
+    },
+    {
+      company: "Kimberly-Clark Healthcare Platform",
+      period: "2021-2022",
+      client: "Tech Mahindra",
+      industry: "Healthcare Industry",
+      description: "Planned and executed manual tests for desktop, mobile, and web platforms, identifying usability issues and critical failures early in the development cycle.",
+      technologies: ["Manual Testing", "Jira", "Excel", "Mobile Testing", "Web Testing", "Desktop Testing"],
+      achievements: [
+        "Detected critical failures early, saving millions in potential losses",
+        "Collaborated with cross-functional teams to prioritize and resolve defects efficiently",
+        "Implemented comprehensive testing strategies across multiple platforms"
+      ]
+    },
+    {
+      company: "K2 Partnering Solutions - HR Platform",
+      period: "2021",
+      client: "K2 Partnering Solutions",
+      industry: "HR Industry",
+      description: "Designed test automation frameworks using Katalon Studio and Groovy, automating functional and regression tests to reduce manual testing effort by 40%.",
+      technologies: ["Katalon Studio", "Groovy", "Salesforce", "Azure DevOps", "CI/CD", "Test Automation"],
+      achievements: [
+        "Reduced manual testing effort by 40% through automation",
+        "Automated Salesforce workflows and end-to-end business processes",
+        "Enhanced internal testing efficiency, optimizing hiring processes for clients"
+      ]
+    },
+    {
+      company: "Ágora Investimentos Platform",
+      period: "2020-2021",
+      client: "Capgemini",
+      industry: "Financial Industry",
+      description: "Developed and maintained test automation frameworks for web and mobile platforms using Selenium, Appium, and C#, integrating Docker-based CI/CD pipelines.",
+      technologies: ["Selenium", "Appium", "C#", "xUnit", "Docker", "Jira", "TFS"],
+      achievements: [
+        "Introduced a robust test automation routine improving app performance",
+        "Strengthened client trust through enhanced testing processes",
+        "Streamlined test deployments through Docker-based CI/CD pipelines"
+      ]
+    },
+    {
+      company: "Banking Software Testing",
+      period: "2017-2020",
+      client: "Sopra Banking Software",
+      industry: "Banking Industry",
+      description: "Enhanced automated testing frameworks with Selenium and Java, conducting functional and compliance tests for multiple banking clients.",
+      technologies: ["Selenium", "Java", "Oracle", "Jira", "Confluence", "SoapUI", "API Testing"],
+      achievements: [
+        "Reduced regression testing time by 30% through framework enhancement",
+        "Contributed to successful Central Bank of Brazil audit for PACCAR Bank",
+        "Developed API validation scripts ensuring banking regulation compliance"
+      ]
+    }
+  ];
+
   return (
-    <section id="experience" className="py-20 bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-neon-blue mb-4">
-            Professional Experience
-          </h2>
-          <div className="w-24 h-1 mx-auto bg-neon-pink"></div>
+    <section id="experience" className="relative py-16 overflow-hidden">
+      {/* Background Effects */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Content */}
+      <motion.div
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="flex items-center space-x-3 mb-6">
+          <FaCalendarAlt className="w-6 h-6 text-neon-blue" />
+          <h3 className="text-3xl font-semibold text-white">Professional Experience</h3>
         </div>
- 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-px top-0 h-full w-px bg-neon-blue/20" />
- 
-          {/* Experience items */}
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <div key={index} className={`relative flex ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-start group`}>
-                {/* Timeline dot with glow effect */}
-                <div className="absolute left-0 md:left-1/2 transform -translate-x-1/2">
-                  <div className="w-4 h-4 rounded-full bg-neon-blue group-hover:animate-glow-blue" />
-                </div>
- 
-                {/* Content */}
-                <div className={`flex-1 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <div className="bg-black p-6 rounded-lg border border-gray-800 hover:border-neon-blue transition-colors duration-300">
-                    {/* Header */}
-                    <div className="flex flex-wrap items-center justify-between mb-6">
-                      <h3 className="text-2xl font-bold text-neon-pink">
-                        {exp.title}
-                      </h3>
-                      <span className="text-sm text-neon-blue font-medium px-3 py-1 rounded-full border border-neon-blue">
-                        {exp.type}
-                      </span>
-                    </div>
- 
-                    {/* Company & Period Info */}
-                    <div className="mb-6 space-y-3">
-                      <div className="flex items-center text-gray-300">
-                        <FaBuilding className="w-5 h-5 mr-3 text-neon-blue" />
-                        <span className="font-medium">{exp.company}</span>
-                      </div>
-                      {exp.client && (
-                        <div className="flex items-center text-gray-300 ml-8">
-                          <FaBriefcase className="w-5 h-5 mr-3 text-neon-blue" />
-                          <span>{exp.client}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center text-gray-300">
-                        <FaCalendarAlt className="w-5 h-5 mr-3 text-neon-blue" />
-                        <span>{exp.period}</span>
-                      </div>
-                    </div>
- 
-                    {/* Description */}
-                    <div className="mb-6">
-                      <p className="text-gray-300 leading-relaxed">
-                        {exp.description}
-                      </p>
-                    </div>
- 
-                    {/* Achievements */}
-                    <div className="bg-black/40 p-4 rounded-lg border border-neon-pink/20">
-                      <div className="flex items-center mb-2">
-                        <FaTrophy className="w-5 h-5 mr-2 text-neon-pink" />
-                        <p className="text-neon-pink font-medium">
-                          Key Achievement
-                        </p>
-                      </div>
-                      <p className="text-gray-300">
-                        {exp.achievements}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+        <div className="space-y-8">
+          {experiences.map((experience) => (
+            <motion.div
+              key={experience.company}
+              className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                <h4 className="text-2xl font-medium text-white">{experience.client}</h4>
+                <p className="text-xl text-gray-400">{experience.period}</p>
               </div>
-            ))}
-          </div>
+              <p className="text-lg text-gray-400 mb-4">{experience.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {experience.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 bg-gray-800 rounded-full text-lg text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4">
+                <h5 className="text-xl font-medium text-white mb-2">Key Achievements:</h5>
+                <ul className="list-disc list-inside space-y-2 text-gray-400">
+                  {experience.achievements.map((achievement, index) => (
+                    <li key={index} className="text-lg">{achievement}</li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
- };
- 
- export default Experience;
+};
+
+export default Experience; 

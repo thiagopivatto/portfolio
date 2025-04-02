@@ -1,123 +1,198 @@
 import React from 'react';
-import { FaCode, FaDatabase, FaServer, FaTerminal } from 'react-icons/fa';
-
-interface Skill {
- name: string;
- level?: number;
- years?: string;
-}
-
-interface SkillCategory {
- title: string;
- icon: React.ElementType;
- skills: Skill[];
-}
-
-const skillCategories: SkillCategory[] = [
- {
-   title: "Software Testing",
-   icon: FaTerminal,
-   skills: [
-     { name: "Selenium", years: "4 years", level: 90 },
-     { name: "Cypress", level: 85 },
-     { name: "JUnit/xUnit", level: 85 },
-     { name: "Postman", years: "2 years", level: 90 },
-     { name: "Appium", level: 80 }
-   ]
- },
- {
-   title: "Programming Languages",
-   icon: FaCode,
-   skills: [
-     { name: "Java", level: 85 },
-     { name: "C#", level: 80 },
-     { name: "Python", level: 75 },
-     { name: "JavaScript", level: 80 }
-   ]
- },
- {
-   title: "Databases",
-   icon: FaDatabase,
-   skills: [
-     { name: "Oracle", level: 85 },
-     { name: "SQL Server", level: 80 },
-     { name: "MySQL", level: 75 },
-   ]
- },
- {
-   title: "DevOps & Tools",
-   icon: FaServer,
-   skills: [
-     { name: "Jenkins", level: 85 },
-     { name: "Docker", level: 80 },
-     { name: "Git", level: 90 },
-     { name: "AWS", level: 75 },
-     { name: "Azure DevOps", level: 85 }
-   ]
- }
-];
+import { motion } from 'framer-motion';
+import { 
+  FaCode, 
+  FaTools, 
+  FaMobile, 
+  FaRobot,
+  FaBug,
+  FaNetworkWired,
+  FaCloud,
+  FaTerminal,
+  FaLaptopCode,
+  FaDatabase as FaDb,
+  FaChartLine,
+  FaFileAlt,
+  FaUsers,
+  FaWindows,
+  FaLinux,
+  FaApple,
+  FaSearch,
+  FaTachometerAlt,
+  FaVial,
+  FaClipboardCheck,
+  FaRocket,
+  FaServer,
+  FaMicrochip,
+  FaCodeBranch as FaGit,
+  FaDocker,
+  FaJenkins
+} from 'react-icons/fa';
 
 const Skills: React.FC = () => {
- return (
-   <section id="skills" className="py-20 bg-black">
-     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       <div className="text-center mb-16">
-         <h2 className="text-4xl font-bold text-neon-blue mb-4">
-           Skills & Expertise
-         </h2>
-         <div className="w-24 h-1 mx-auto bg-neon-pink"></div>
-       </div>
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
 
-       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-         {skillCategories.map((category, index) => (
-           <div 
-             key={index}
-             className="bg-black/40 rounded-lg p-8 border border-gray-800 hover:border-neon-blue transition-all duration-300"
-           >
-             <div className="flex items-center mb-8">
-               <div className="p-3 bg-neon-blue/10 rounded-lg mr-4 group-hover:bg-neon-blue/20">
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
+  const skills = {
+    testing: {
+      title: "Software Testing",
+      icon: FaBug,
+      items: [
+        { name: "UAT", icon: FaClipboardCheck },
+        { name: "Exploratory", icon: FaSearch },
+        { name: "Sanity", icon: FaVial },
+        { name: "Regression", icon: FaTachometerAlt },
+        { name: "Smoke", icon: FaRocket },
+        { name: "Unit", icon: FaMicrochip },
+        { name: "API", icon: FaNetworkWired },
+        { name: "Performance", icon: FaChartLine }
+      ]
+    },
+    automation: {
+      title: "Test Automation",
+      icon: FaRobot,
+      items: [
+        { name: "Selenium", icon: FaLaptopCode },
+        { name: "Cypress", icon: FaTerminal },
+        { name: "JUnit/xUnit", icon: FaCode },
+        { name: "Postman", icon: FaNetworkWired },
+        { name: "Appium", icon: FaMobile },
+        { name: "JMeter", icon: FaChartLine },
+        { name: "Katalon Studio", icon: FaTools },
+        { name: "Robot Framework", icon: FaRobot },
+        { name: "Playwright", icon: FaLaptopCode },
+        { name: "Cucumber", icon: FaCode }
+      ]
+    },
+    programming: {
+      title: "Programming & Database",
+      icon: FaCode,
+      items: [
+        { name: "Java", icon: FaCode },
+        { name: "C#", icon: FaCode },
+        { name: "Python", icon: FaCode },
+        { name: "Groovy", icon: FaCode },
+        { name: "JavaScript", icon: FaCode },
+        { name: "Oracle", icon: FaDb },
+        { name: "SQL Server", icon: FaDb },
+        { name: "MySQL", icon: FaDb }
+      ]
+    },
+    cicd: {
+      title: "CI/CD & Cloud",
+      icon: FaServer,
+      items: [
+        { name: "Jenkins", icon: FaJenkins },
+        { name: "Docker", icon: FaDocker },
+        { name: "Git", icon: FaGit },
+        { name: "AWS", icon: FaCloud },
+        { name: "Azure DevOps", icon: FaCloud }
+      ]
+    },
+    tools: {
+      title: "Tools & Technologies",
+      icon: FaTools,
+      items: [
+        { name: "Office Package", icon: FaFileAlt },
+        { name: "Jira", icon: FaTools },
+        { name: "Confluence", icon: FaTools },
+        { name: "Zephyr", icon: FaTools },
+        { name: "Monday", icon: FaTools }
+      ]
+    },
+    methodology: {
+      title: "Methodology & OS",
+      icon: FaUsers,
+      items: [
+        { name: "SAFe", icon: FaUsers },
+        { name: "Scrum", icon: FaUsers },
+        { name: "Kanban", icon: FaUsers },
+        { name: "Windows", icon: FaWindows },
+        { name: "Linux", icon: FaLinux },
+        { name: "MacOS", icon: FaApple }
+      ]
+    }
+  };
+
+  return (
+    <section id="skills" className="relative py-20 overflow-hidden">
+      {/* Background Effects */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/20 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Grid Pattern */}
+      <div className="absolute inset-0" style={{
+        backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)`,
+        backgroundSize: '50px 50px',
+      }} />
+
+      {/* Content */}
+      <motion.div
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.h2
+          className="text-3xl sm:text-4xl font-bold text-white mb-12 text-center"
+          variants={itemVariants}
+        >
+          Skills & Expertise
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {Object.entries(skills).map(([key, category]) => (
+            <motion.div
+              key={key}
+              className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800 hover:border-neon-blue transition-colors"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex items-center space-x-4 mb-6">
                 <category.icon className="w-6 h-6 text-neon-blue" />
-               </div>
-               <h3 className="text-2xl font-bold text-neon-pink">
-                 {category.title}
-               </h3>
-             </div>
-
-             <div className="space-y-6">
-               {category.skills.map((skill, skillIndex) => (
-                 <div key={skillIndex} className="space-y-2">
-                   <div className="flex justify-between">
-                     <span className="text-gray-300 font-medium">
-                       {skill.name}
-                       {skill.years && (
-                         <span className="ml-2 text-sm text-gray-500">
-                           ({skill.years})
-                         </span>
-                       )}
-                     </span>
-                     {skill.level && (
-                       <span className="text-neon-blue">
-                         {skill.level}%
-                       </span>
-                     )}
-                   </div>
-                   {skill.level && (
-                     <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
-                       <div 
-                         className="h-full bg-gradient-to-r from-neon-blue to-neon-pink rounded-full transition-all duration-1000"
-                         style={{ width: `${skill.level}%` }}
-                       />
-                     </div>
-                   )}
-                 </div>
-               ))}
-             </div>
-           </div>
-         ))}
-       </div>
-     </div>
-   </section>
- );
+                <h3 className="text-xl font-semibold text-white">{category.title}</h3>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                {category.items.map((item) => (
+                  <div key={item.name} className="flex items-center space-x-2">
+                    <item.icon className="w-4 h-4 text-gray-500" />
+                    <span className="text-gray-400 text-sm">{item.name}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
 };
 
 export default Skills;

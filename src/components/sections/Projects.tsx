@@ -1,135 +1,128 @@
 import React from 'react';
-import { FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
-
-interface Project {
- title: string;
- description: string;
- tags: string[];
- year: string;
- link?: string;
- github?: string;
-}
-
-const projects: Project[] = [
-  {
-    title: "Ultron",
-    description: "Entertainment bot for WhatsApp using NodeJS. Personal project developed in 2022.",
-    tags: ["NodeJS", "WhatsApp API", "Bot"],
-    year: "2022",
-    github: "https://github.com/thiagopivatto/ultron"
-  },
-  {
-    title: "HUD Car",
-    description: "Development of HUD automotive solution. Undergraduate project from 4th year.",
-    tags: ["Hardware", "Automotive", "HUD"],
-    year: "2019"
-  },
-  {
-    title: "ChinchiApp",
-    description: "App development project from 3rd year of undergraduate studies.",
-    tags: ["Mobile", "App Development"],
-    year: "2018"
-  },
-  {
-    title: "AirCup",
-    description: "Drone construction project from 2nd year of undergraduate studies.",
-    tags: ["Drone", "Hardware", "Engineering"],
-    year: "2017"
-  },
-  {
-    title: "CyberCup",
-    description: "AGV robot project from 1st year of undergraduate studies.",
-    tags: ["Robotics", "AGV", "Programming"],
-    year: "2016"
-  },
-  {
-    title: "AlfaBeta",
-    description: "Quiz format game in Android to help people studying for entrance exams. ETEC project.",
-    tags: ["Android", "Education", "Game Development"],
-    year: "2015"
-  }
-];
+import { motion } from 'framer-motion';
+import { FaRobot, FaRocket, FaCar, FaMobile, FaPlane, FaGamepad, FaWhatsapp, FaCode } from 'react-icons/fa';
 
 const Projects: React.FC = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5
+      }
+    }
+  };
+
+  const projects = [
+    {
+      name: "Ultron",
+      description: "WhatsApp entertainment bot using NodeJS",
+      icon: FaWhatsapp,
+      technologies: ["NodeJS", "WhatsApp API", "JavaScript", "MongoDB"]
+    },
+    {
+      name: "Startup One",
+      description: "Led startup project during undergraduate studies",
+      icon: FaRocket,
+      technologies: ["React", "NodeJS", "MongoDB", "AWS"]
+    },
+    {
+      name: "HUD Car",
+      description: "Automotive HUD solution integrating software and hardware",
+      icon: FaCar,
+      technologies: ["Python", "Arduino", "C++", "OpenGL"]
+    },
+    {
+      name: "ChinchiApp",
+      description: "App supporting academic needs with accessibility focus",
+      icon: FaMobile,
+      technologies: ["React Native", "Firebase", "TypeScript", "Redux"]
+    },
+    {
+      name: "AirCup",
+      description: "Competition drone showcasing engineering skills",
+      icon: FaPlane,
+      technologies: ["Python", "Arduino", "C++", "ROS"]
+    },
+    {
+      name: "CyberCup",
+      description: "AGV robot emphasizing automation and system reliability",
+      icon: FaRobot,
+      technologies: ["Python", "ROS", "C++", "Arduino"]
+    },
+    {
+      name: "AlfaBeta",
+      description: "Android quiz game for entrance exam preparation",
+      icon: FaGamepad,
+      technologies: ["Java", "Android SDK", "SQLite", "Firebase"]
+    }
+  ];
+
   return (
-    <section id="projects" className="py-20 bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-neon-blue mb-4">
-            Projects
-          </h2>
-          <div className="w-24 h-1 mx-auto bg-neon-pink"></div>
+    <section id="projects" className="relative py-16 overflow-hidden">
+      {/* Background Effects */}
+      <motion.div
+        className="absolute inset-0 bg-black"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-50" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neon-blue/10 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Content */}
+      <motion.div
+        className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
+        <div className="flex items-center space-x-3 mb-6">
+          <FaCode className="w-6 h-6 text-neon-blue" />
+          <h3 className="text-3xl font-semibold text-white">Academic and Personal Projects</h3>
         </div>
- 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div 
-              key={index}
-              className="group bg-black border border-gray-800 hover:border-neon-blue rounded-lg overflow-hidden transition-all duration-300"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <motion.div
+              key={project.name}
+              className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.2 }}
             >
-              <div className="p-6 space-y-4">
-                {/* Header */}
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold text-neon-pink group-hover:text-neon-blue transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                  <span className="text-sm text-neon-blue px-2 py-1 rounded-full border border-neon-blue">
-                    {project.year}
-                  </span>
-                </div>
- 
-                {/* Description */}
-                <p className="text-gray-400">
-                  {project.description}
-                </p>
- 
-                {/* Tech Stack */}
-                <div className="pt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="px-3 py-1 text-sm text-neon-blue bg-neon-blue/10 border border-neon-blue/20 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
- 
-                {/* Links */}
-                <div className="pt-4 flex items-center space-x-4 border-t border-gray-800">
-                  {project.github && (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center text-gray-400 hover:text-neon-blue transition-colors duration-300"
-                    >
-                      <FaGithub className="w-5 h-5 mr-2"/>
-                      <span>Code</span>
-                    </a>
-                  )}
-                  {project.link && (
-                    <a href={project.link} target="_blank" rel="noopener noreferrer"
-                      className="flex items-center text-gray-400 hover:text-neon-blue transition-colors duration-300"
-                    >
-                      <FaExternalLinkAlt className="w-5 h-5 mr-2"/>
-                      <span>Demo</span>
-                    </a>
-                  )}
-                  {!project.github && !project.link && (
-                    <span className="flex items-center text-gray-500">
-                      <FaCode className="w-5 h-5 mr-2" />
-                      <span>Private Project</span>
-                    </span>
-                  )}
-                </div>
+              <div className="flex items-center space-x-3 mb-4">
+                <project.icon className="w-6 h-6 text-neon-blue" />
+                <h3 className="text-2xl font-medium text-white">{project.name}</h3>
               </div>
-            </div>
+              <p className="text-lg text-gray-400 mb-4">{project.description}</p>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-4 py-2 bg-gray-800 rounded-full text-lg text-gray-300"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
- };
- 
- export default Projects;
+};
+
+export default Projects;

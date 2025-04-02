@@ -1,8 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Pivatto
 
-## Getting Started
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Features
+
+- Next.js 15.1.0 with TypeScript support
+- Tailwind CSS for styling
+- Framer Motion for animations
+- i18next for internationalization
+- Headless UI components
+- Hero Icons
+- React Icons
+- Dark mode support
+- Responsive design
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have the following installed:
+- Node.js (v18 or higher)
+- npm (v9 or higher)
+
+## 🛠️ Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/portfolio-pivatto.git
+cd portfolio-pivatto
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+## 🔧 Development
+
+To run the development server:
 
 ```bash
 npm run dev
@@ -10,27 +47,118 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🏗️ Building for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To create a production build:
 
-## Learn More
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+```
 
-To learn more about Next.js, take a look at the following resources:
+To start the production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run start
+# or
+yarn start
+# or
+pnpm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📝 Linting
 
-## Deploy on Vercel
+To run the linter:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+# or
+yarn lint
+# or
+pnpm lint
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+### Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+
+1. Push your code to a Git repository (GitHub, GitLab, BitBucket)
+2. Import your project on Vercel
+3. Vercel will automatically detect Next.js and configure the build settings
+4. Deploy!
+
+### Manual Deployment
+
+1. Build your application:
+```bash
+npm run build
+```
+
+2. Start the production server:
+```bash
+npm run start
+```
+
+## 🎨 Customization
+
+### Colors
+
+The project uses a custom color scheme defined in `tailwind.config.ts`:
+
+- Neon Blue: `#00f2ff`
+- Neon Pink: `#ff00ff`
+- Dark theme colors:
+  - Default: `#000000`
+  - Dark 100: `#0a0a0a`
+  - Dark 200: `#121212`
+
+### Internationalization
+
+The project uses i18next for internationalization. Translation files can be found in the `public/locales` directory.
+
+## 📁 Project Structure
+
+```
+portfolio-pivatto/
+├── public/          # Static files
+├── src/
+│   ├── components/  # React components
+│   ├── pages/       # Next.js pages
+│   ├── styles/      # Global styles
+│   └── utils/       # Utility functions
+├── next.config.ts   # Next.js configuration
+├── tailwind.config.ts # Tailwind CSS configuration
+└── package.json     # Project dependencies
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 👤 Author
+
+Thiago Pivatto
+
+## 🙏 Acknowledgments
+
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [i18next](https://www.i18next.com/)

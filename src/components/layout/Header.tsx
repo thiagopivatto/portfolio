@@ -1,87 +1,103 @@
 import React, { useState, useEffect } from 'react';
-import { FaBars } from 'react-icons/fa';
-
-interface NavItem {
-  name: string;
-  href: string;
-}
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { FaBars, FaTimes } from 'react-icons/fa';
+import LanguageSelector from './LanguageSelector';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const { scrollY } = useScroll();
 
-  const navigation: NavItem[] = [
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 150) {
+      setIsVisible(false);
+    } else {
+      setIsVisible(true);
+    }
+  });
+
+  const navItems = [
     { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  });
-
   return (
-    <header 
-      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-black/80 backdrop-blur-sm border-b border-gray-900'
-          : 'bg-transparent'
-      }`}
+    <motion.header
+      className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-gray-800"
+      animate={{
+        y: isVisible ? 0 : -100,
+        opacity: isVisible ? 1 : 0
+      }}
+      transition={{ duration: 0.3 }}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0 mr-auto">
-            <span className="text-2xl font-bold text-neon-blue hover:text-neon-pink transition-colors duration-300">
-              Thiago Pivatto
-            </span>
-          </div>
+          {/* Logo */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex-shrink-0"
+          >
+            <a href="#home" className="text-2xl font-bold text-white">
+              <span className="text-neon-blue">TP</span>
+            </a>
+          </motion.div>
 
-          <div className="hidden md:flex md:items-center md:space-x-8">
-            {navigation.map((item) => (
-              <a
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <motion.a
                 key={item.name}
                 href={item.href}
-                className="text-gray-400 hover:text-neon-blue transition-colors duration-300"
+                className="text-gray-300 hover:text-white transition-colors"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 {item.name}
-              </a>
+              </motion.a>
             ))}
-          </div>
+            <LanguageSelector />
+          </nav>
 
-          <div className="md:hidden ml-auto">
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center space-x-4">
+            <LanguageSelector />
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-400 hover:text-neon-blue transition-colors duration-300"
+              className="text-gray-300 hover:text-white focus:outline-none"
             >
-              <FaBars className="h-6 w-6" />
+              {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
             </button>
           </div>
         </div>
+      </div>
 
-        {isOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 bg-black border-t border-gray-900">
-              {navigation.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-gray-400 hover:text-neon-blue transition-colors duration-300"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
-    </header>
+      {/* Mobile Navigation */}
+      <motion.div
+        className="md:hidden"
+        initial={false}
+        animate={{ height: isOpen ? "auto" : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 bg-black/80 backdrop-blur-md">
+          {navItems.map((item) => (
+            <motion.a
+              key={item.name}
+              href={item.href}
+              className="block px-3 py-2 text-gray-300 hover:text-white transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </motion.a>
+          ))}
+        </div>
+      </motion.div>
+    </motion.header>
   );
 };
 

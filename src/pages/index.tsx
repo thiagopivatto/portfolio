@@ -3,9 +3,10 @@ import Head from 'next/head';
 import Layout from '../components/layout/Layout';
 import Hero from '../components/sections/Hero';
 import About from '../components/sections/About';
-import Experience from '../components/sections/Experience';
 import Skills from '../components/sections/Skills';
+import Experience from '../components/sections/Experience';
 import Projects from '../components/sections/Projects';
+import Certificates from '../components/sections/Certificates';
 import Contact from '../components/sections/Contact';
 
 const Home: React.FC = () => {
@@ -39,15 +40,10 @@ const Home: React.FC = () => {
         <Hero />
 
         {/* Main Content */}
-        <div className="space-y-1">
+        <div>
           {/* About Section */}
           <section id="about">
             <About />
-          </section>
-
-          {/* Experience Section */}
-          <section id="experience">
-            <Experience />
           </section>
 
           {/* Skills Section */}
@@ -55,9 +51,19 @@ const Home: React.FC = () => {
             <Skills />
           </section>
 
+          {/* Experience Section */}
+          <section id="experience">
+            <Experience />
+          </section>
+
           {/* Projects Section */}
           <section id="projects">
             <Projects />
+          </section>
+
+          {/* Certificates Section */}
+          <section id="certificates">
+            <Certificates />
           </section>
 
           {/* Contact Section */}
