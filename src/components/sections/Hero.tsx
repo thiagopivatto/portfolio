@@ -112,17 +112,21 @@ const Hero: React.FC = () => {
             >
               <motion.a
                 href="#experience"
+                className="px-8 py-3 bg-dark-200 text-neon-blue font-semibold rounded-lg hover:bg-dark-100 border border-neon-blue/30 hover:border-neon-blue transition-all duration-300 text-lg whitespace-nowrap"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-neon-blue text-black font-semibold rounded-lg hover:bg-neon-blue/90 transition-colors"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.getElementById('experience')?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
-                View Experience
+                See Professional Expertise
               </motion.a>
               <motion.a
                 href="#contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 border border-neon-blue text-neon-blue font-semibold rounded-lg hover:bg-neon-blue/10 transition-colors"
+                className="px-8 py-3 bg-dark-200 text-neon-pink font-semibold rounded-lg hover:bg-dark-100 border border-neon-pink/30 hover:border-neon-pink transition-all duration-300 text-lg whitespace-nowrap"
               >
                 Contact Me
               </motion.a>
@@ -132,7 +136,7 @@ const Hero: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-neon-pink text-white font-semibold rounded-lg hover:bg-neon-pink/90 transition-colors flex items-center space-x-2"
+                className="px-8 py-3 bg-dark-200 text-neon-blue font-semibold rounded-lg hover:bg-dark-100 border border-neon-blue/30 hover:border-neon-blue transition-all duration-300 text-lg flex items-center space-x-2 whitespace-nowrap"
               >
                 <FaGoogleDrive className="w-5 h-5" />
                 <span>View CV</span>
