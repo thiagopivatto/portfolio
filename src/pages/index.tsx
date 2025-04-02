@@ -27,12 +27,6 @@ const Home: React.FC = () => {
         
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
-        
-        {/* Fonts */}
-        <link 
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" 
-          rel="stylesheet"
-        />
       </Head>
 
       <main className="bg-white dark:bg-gray-900 transition-colors duration-300">
